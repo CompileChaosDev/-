@@ -35,7 +35,6 @@
           <button class="icon-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false">&#8942;</button>
           <div class="dropdown" id="dropdown" hidden>
             <a href="#home" data-nav="home">Home</a>
-            <a href="#skill" data-nav="skill">Skill</a>
             <a href="#projects" data-nav="projects">Projects</a>
             <a href="#produk" data-nav="produk">Produk</a>
           </div>
@@ -50,11 +49,6 @@
       
       <article class="card"><p id="desc"></p></article>
       <nav class="links" id="links"></nav>
-    </section>
-
-    <section class="room" id="skill" hidden>
-      <h2 class="title">SKILL</h2>
-      <div class="skills" id="skills"></div>
     </section>
 
     <section class="room" id="projects" hidden>
@@ -185,60 +179,6 @@
       $('#links').appendChild(a);
     });
 
-    var SKILL_ICON = {
-      javascript: 'JS', js: 'JS', typescript: 'TS', html: '</>', css: '{ }', python: 'Py', php: 'PHP',
-      node: '\u2B22', nodejs: '\u2B22', 'node.js': '\u2B22', react: '\u269B', java: '\u2615', sql: 'DB',
-      mysql: 'DB', git: 'git', linux: '\uD83D\uDC27', bot: '\uD83E\uDD16', c: 'C', 'c++': 'C++',
-      kotlin: 'Kt', go: 'Go', rust: 'Rs'
-    };
-
-    var skills = get('Myskill');
-    if (!Array.isArray(skills)) skills = String(skills).split(',');
-    skills = skills.map(function (s) { return String(s).trim(); }).filter(Boolean);
-
-    if (skills.length) {
-      skills.forEach(function (s, i) {
-        var parts = s.split(':');
-        var nm = parts[0].trim();
-        var lv = parseInt(parts[1], 10);
-        var card = document.createElement('div');
-        card.className = 'skill c' + (i % 5);
-
-        var ic = document.createElement('span');
-        ic.className = 'sic';
-        ic.textContent = SKILL_ICON[nm.toLowerCase().replace(/\s/g, '')] || nm.slice(0, 2).toUpperCase();
-
-        var info = document.createElement('div');
-        info.className = 'sinfo';
-        var t = document.createElement('b');
-        t.textContent = nm;
-        info.appendChild(t);
-
-        if (!isNaN(lv)) {
-          lv = Math.max(0, Math.min(100, lv));
-          var meter = document.createElement('div');
-          meter.className = 'meter';
-          var bar = document.createElement('div');
-          bar.className = 'bar';
-          var fill = document.createElement('i');
-          fill.style.setProperty('--w', lv + '%');
-          bar.appendChild(fill);
-          var pct = document.createElement('span');
-          pct.className = 'pct';
-          pct.textContent = lv + '%';
-          meter.appendChild(bar);
-          meter.appendChild(pct);
-          info.appendChild(meter);
-        }
-
-        card.appendChild(ic);
-        card.appendChild(info);
-        $('#skills').appendChild(card);
-      });
-    } else {
-      $('#skills').innerHTML = '<p class="empty">Belum ada skill.</p>';
-    }
-
     var projects = get('Projek');
     if (!Array.isArray(projects)) projects = [];
 
@@ -359,8 +299,8 @@
       $('#productList').innerHTML = '<p class="empty">Belum ada produk.</p>';
     }
 
-    var rooms = ['home', 'skill', 'projects', 'produk'];
-    var legacy = { skil: 'skill', projek: 'projects' };
+    var rooms = ['home', 'projects', 'produk'];
+    var legacy = { projek: 'projects' };
     var menuBtn = $('#menuBtn');
     var dropdown = $('#dropdown');
 

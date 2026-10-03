@@ -8,12 +8,8 @@ Intro = 'Malix/intro.mp4';
 
 Links = [
   'https://whatsapp.com/channel/0029Vb8oXCKJENy6aGRhmV1z',
-  'https://www.instagram.com/malix7252?stkn=aHRmc2l4NDNuM2M0',
-  'tiktok.com/@malixapel76',
-  't.me/malix_raw'
+  'tiktok.com/@malixapel76'
 ];
-
-Myskill = ['HTML:90', 'CSS:85', 'JavaScript:80', 'Node.js:75'];
 
 Projek = [
   {
