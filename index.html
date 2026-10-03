@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="malix.css">
+  <link rel="stylesheet" href="style.css">
   <script src="config.js"></script>
   <script>
     (function () {
@@ -34,7 +34,7 @@
         <div class="menu-wrap">
           <button class="icon-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false">&#8942;</button>
           <div class="dropdown" id="dropdown" hidden>
-            <a href="#home" data-nav="home">Beranda</a>
+            <a href="#home" data-nav="home">Home</a>
             <a href="#skill" data-nav="skill">Skill</a>
             <a href="#projects" data-nav="projects">Projects</a>
             <a href="#produk" data-nav="produk">Produk</a>
@@ -47,10 +47,7 @@
       <div class="banner" id="banner">
         <img class="avatar" id="photo" alt="">
       </div>
-      <div class="who">
-        <h2 class="name" id="name"></h2>
-        <span class="role" id="role"></span>
-      </div>
+      
       <article class="card"><p id="desc"></p></article>
       <nav class="links" id="links"></nav>
     </section>
@@ -86,8 +83,6 @@
     var owner = String(get('Nameowner') || 'Malix');
     document.title = owner;
     $('#brand').textContent = '\u26A1 ' + owner;
-    $('#name').textContent = owner;
-    $('#role').textContent = get('Role') || 'Developer';
     $('#desc').textContent = get('Deskripsi');
     $('#foot').textContent = '\u00A9 ' + owner;
     if (!get('Deskripsi')) $('#desc').parentNode.hidden = true;
@@ -185,7 +180,7 @@
       a.href = href;
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
-      a.innerHTML = '<span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[icon] + '</svg></span><span></span><span class="go" aria-hidden="true">&rarr;</span>';
+      a.innerHTML = '<span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[icon] + '</svg></span><span></span>';
       a.children[1].textContent = label;
       $('#links').appendChild(a);
     });
