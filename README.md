@@ -1,9 +1,9 @@
-Malix Portfolio
+# Malix Portfolio
 
 Personal portfolio website dengan sistem konfigurasi terpusat.
-Semua informasi website dapat diatur hanya melalui "config.js".
+Seluruh informasi website dapat dikelola melalui satu file, yaitu `config.js`.
 
-Struktur
+## Struktur
 
 .
 ├── malix/
@@ -14,29 +14,28 @@ Struktur
 ├── script.js
 └── README.md
 
-Configuration
+## Configuration
 
-Semua pengaturan berada di:
+Seluruh pengaturan website berada di:
 
-config.js
+`config.js`
 
-Yang dapat diubah:
+Data yang dapat dikonfigurasi:
 
 - Profile
-- Foto dan background
+- Foto & background
 - Intro video
 - Social links
 - Skills
 - Projects
 - Products
-- Harga dan link produk
+- Harga & link produk
 
-Tidak perlu mengubah "index.html" atau "script.js" untuk memperbarui isi website.
+Tidak perlu mengubah `index.html` atau `script.js` untuk memperbarui konten website.
 
-Project
-
-Project ditambahkan melalui:
-
+## Projects
+Tambahkan project melalui:
+```js
 Projek = [
   {
     Potprojek: 'IMAGE_URL',
@@ -47,10 +46,8 @@ Projek = [
   }
 ];
 
-Product
-
-Produk ditambahkan melalui:
-
+Products
+Tambahkan produk melalui:
 Produk = [
   {
     Potproduk: 'IMAGE_URL',
@@ -63,8 +60,7 @@ Produk = [
 ];
 
 Links
-
-Social media dan link lainnya cukup ditambahkan ke array:
+Social media dan link lainnya cukup ditambahkan ke:
 
 Links = [
   'https://instagram.com/username',
@@ -72,9 +68,10 @@ Links = [
   'https://github.com/username'
 ];
 
-Website akan menyusunnya secara otomatis.
+Website akan menyusun dan menampilkan link secara otomatis.
 
 Skills
+Atur skill dan persentasenya melalui:
 
 Myskill = [
   'HTML:90',
@@ -84,14 +81,13 @@ Myskill = [
 ];
 
 Setup
-
 1. Download atau clone repository.
-2. Buka "config.js".
-3. Ubah data sesuai kebutuhan.
-4. Buka "index.html".
+2. Buka config.js.
+3. Sesuaikan data dengan kebutuhan.
+4. Buka index.html.
+
+
 
 Developer
-
 Malix
-
-«Simple configuration. Automatic rendering.»
+> Simple configuration. Automatic rendering.
