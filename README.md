@@ -10,11 +10,6 @@
 <img src="https://files.catbox.moe/nlvumf.jpg" align="right" width="15%" hspace="3" vspace="8" alt="Preview 2">
 <img src="https://files.catbox.moe/4tvb44.jpg" align="right" width="15%" hspace="3" vspace="8" alt="Preview 1">
 
-<div align="center">
-
-Website portfolio bergaya **neo-brutalism** yang seluruh isinya diatur dari **satu file**: `config.js`.
-Tanpa framework, tanpa build, tinggal edit lalu buka.
-</div>
 
 <br clear="all">
 
@@ -48,6 +43,7 @@ Tanpa framework, tanpa build, tinggal edit lalu buka.
 ├── index.html
 ├── config.js
 ├── style.css
+├── script.js
 └── README.md
 ```
 
