@@ -6,9 +6,9 @@
 
 </div>
 
-<img src="https://files.catbox.moe/mid0hv.jpg" align="right" width="50%" hspace="3" vspace="8" alt="Preview 3">
-<img src="https://files.catbox.moe/nlvumf.jpg" align="right" width="50%" hspace="3" vspace="8" alt="Preview 2">
-<img src="https://files.catbox.moe/4tvb44.jpg" align="right" width="50%" hspace="3" vspace="8" alt="Preview 1">
+<img src="https://files.catbox.moe/mid0hv.jpg" align="right" width="48%" hspace="3" vspace="8" alt="Preview 3">
+<img src="https://files.catbox.moe/nlvumf.jpg" align="right" width="48%" hspace="3" vspace="8" alt="Preview 2">
+<img src="https://files.catbox.moe/4tvb44.jpg" align="right" width="48%" hspace="3" vspace="8" alt="Preview 1">
 
 
 <br clear="all">
