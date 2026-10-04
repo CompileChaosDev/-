@@ -16,156 +16,89 @@
 
 <br clear="all">
 
-<div align="center">
-
-[**🌐 Live Demo**](https://domainkamu.vercel.app) · [**⚙️ Konfigurasi**](#️-konfigurasi) · [**🚀 Deploy**](#-deploy)
-
-</div>
+**Malix** adalah template portfolio yang super simpel. Edit satu file config, semuanya langsung tampil. Deploy ke Vercel atau GitHub Pages gratis.
 
 ---
 
 ## ✨ Fitur
 
-| | Fitur | Keterangan |
-|---|---|---|
-| 🎛️ | **Satu file konfigurasi** | Semua konten diatur lewat `config.js`, tanpa menyentuh kode lain |
-| 🔗 | **Link otomatis** | WhatsApp, Instagram, TikTok, Telegram, Discord, YouTube, GitHub, dan lainnya dikenali sendiri |
-| 🖼️ | **Ikon bisa diganti** | Pakai foto sendiri (`.png`, `.jpg`, `.webp`, `.svg`) atau emoji |
-| 🧩 | **Projects & Produk** | Kartu tersusun otomatis, harga diformat jadi Rupiah |
-| 🎬 | **Intro video** | Video pembuka yang bisa di-skip, bisa dimatikan |
-| 📱 | **Mobile first** | Tampilan rapi di HP, ringan dibuka |
+| Fitur | Keterangan |
+|---|---|
+| 🎛️ | **Satu file config** | Edit `config.js`, gak perlu nyentuh kode lain |
+| 🔗 | **Link otomatis** | WhatsApp, Instagram, TikTok, Telegram, dll auto-detect dan auto-style |
+| 🎨 | **Ikon custom** | Pakai foto sendiri atau emoji untuk setiap platform |
+| 🧩 | **Projects & Produk** | Showcase karya dan jual produk (harga auto format Rupiah) |
+| 🎬 | **Intro video** | Video pembuka yang bisa di-skip |
+| 📱 | **Mobile-first** | Responsive di semua device, super ringan |
 
 ---
 
-## 📁 Struktur
+## 🚀 Quick Start
 
-```text
-.
-├── Malix/
-│   └── Background.png
-├── index.html
-├── config.js
-├── style.css
-├── script.js
-└── README.md
-
-> Kamu hanya perlu mengubah **`config.js`**.
-> `index.html`, `style.css`, dan `script.js` tidak perlu disentuh untuk memperbarui isi website.
-
----
-
-## 🚀 Mulai Cepat
-
-1. **Download** atau clone repository ini.
-2. Buka **`config.js`** lalu sesuaikan dengan datamu.
-3. Buka **`index.html`** di browser.
-
-```bash
-git clone https://github.com/USERNAME/NAMA-REPO.git
-cd NAMA-REPO
-```
+1. **Download**: Clone repo atau download ZIP
+2. **Edit**: Buka `config.js` dan sesuaikan datamu
+3. **Buka**: Klik `index.html` di browser
+4. **Deploy**: Push ke GitHub → Vercel auto-deploy
 
 ---
 
 ## ⚙️ Konfigurasi
 
-### 👤 Profil & Tampilan
+### 👤 Profil
 
 ```js
-Nameowner = 'malix';
-Deskripsi = 'Halo, aku Malix. Selamat datang di website aku!';
-
+Nameowner = 'Nama Kamu';
+Deskripsi = 'Halo, saya adalah...';
 Poto = 'Malix/fotoku.jpg';
 Potowelcome = 'Malix/banner.png';
-Background = 'Malix/Background.png';
-Intro = 'Malix/intro.mp4';
+Background = 'Malix/Background.png'; // atau '#ffe9a8'
+Intro = 'Malix/intro.mp4'; // kosongkan untuk matikan
 ```
 
-| Variabel | Fungsi |
-|---|---|
-| `Nameowner` | Nama yang tampil di badge atas, judul tab, dan footer |
-| `Deskripsi` | Teks perkenalan di halaman Home |
-| `Poto` | Foto profil bulat |
-| `Potowelcome` | Gambar banner di Home |
-| `Background` | Gambar latar website (boleh juga kode warna, contoh `'#ffe9a8'`) |
-| `Intro` | Video pembuka. Kosongkan (`''`) untuk mematikan |
+### 🔗 Social Links
 
----
-
-### 🔗 Links
-
-Tinggal tambah link, website menyusun tombol, nama, ikon, dan warnanya **secara otomatis**.
+Cukup tambahin link, platform auto-dideteksi:
 
 ```js
 Links = [
-  'https://whatsapp.com/channel/XXXX',
-  'https://chat.whatsapp.com/XXXX',
-  'https://t.me/+XXXX',
-  'discord.gg/XXXX',
+  'https://whatsapp.com/channel/XXXXX',
+  'https://chat.whatsapp.com/XXXXX',
+  'https://t.me/username',
+  'discord.gg/XXXXX',
   'instagram.com/username',
   'tiktok.com/@username',
   'github.com/username'
 ];
 ```
 
-<details>
-<summary><b>📋 Platform yang dikenali otomatis</b></summary>
+**Platform yang dikenali:** WhatsApp, Instagram, TikTok, Telegram, Discord, YouTube, GitHub, Facebook, X, dan lainnya.
 
-<br>
-
-| Link | Tampil sebagai |
-|---|---|
-| `whatsapp.com/channel/...` | WhatsApp Channel |
-| `chat.whatsapp.com/...` | WhatsApp Group |
-| `wa.me/...` | WhatsApp |
-| `instagram.com/...` | Instagram |
-| `tiktok.com/...` | TikTok |
-| `t.me/+...` | Telegram Group |
-| `t.me/...` | Telegram |
-| `discord.gg/...` | Discord Server |
-| `youtube.com/...` | YouTube |
-| `github.com/...` | GitHub |
-| `facebook.com/...` | Facebook |
-| `x.com/...` | X |
-| lainnya | Nama diambil dari domain |
-
-</details>
-
-**Nama atau ikon khusus untuk satu link:**
-
+**Custom nama & icon:**
 ```js
 Links = [
-  { link: 'https://t.me/+XXXX', nama: 'Grup Telegram Malix', icon: 'Malix/foto2.png' },
-  { link: 'youtube.com/@malix', icon: '▶️' }
+  { 
+    link: 'https://t.me/+XXXXX', 
+    nama: 'Grup Telegram', 
+    icon: 'Malix/foto2.png' 
+  }
 ];
 ```
 
----
-
-### 🎨 Ikon
-
-Ubah ikon **semua link dari satu platform sekaligus**:
+### 🎨 Custom Icons (Opsional)
 
 ```js
 Ikon = {
-  wa: 'Malix/fotoku.jpg',
-  ig: 'Malix/fotoku.jpg',
-  tt: 'Malix/fotoku.jpg',
-  tg: 'Malix/fotoku.jpg',
-  dc: 'Malix/fotoku.jpg',
-  yt: 'Malix/fotoku.jpg',
-  gh: 'Malix/fotoku.jpg',
-  fb: 'Malix/fotoku.jpg',
-  x: 'Malix/fotoku.jpg',
-  link: 'Malix/fotoku.jpg'
+  wa: 'Malix/fotoku.jpg',   // WhatsApp
+  ig: 'Malix/fotoku.jpg',   // Instagram
+  tt: 'Malix/fotoku.jpg',   // TikTok
+  tg: 'Malix/fotoku.jpg',   // Telegram
+  dc: 'Malix/fotoku.jpg',   // Discord
+  yt: 'Malix/fotoku.jpg',   // YouTube
+  gh: 'Malix/fotoku.jpg',   // GitHub
 };
 ```
 
-- Cukup tulis platform yang ingin diubah, sisanya memakai ikon bawaan.
-- `link` berlaku untuk link lain yang tidak dikenali.
-- Kalau gambar gagal dimuat, ikon otomatis kembali ke bawaan.
-
----
+Cukup edit yang mau diubah, sisanya pakai default.
 
 ### 🧩 Projects
 
@@ -174,17 +107,14 @@ Projek = [
   {
     Potprojek: 'Malix/project1.jpg',
     Namaprojek: 'Nama Project',
-    Deskripsiprojek: 'Deskripsi singkat project.',
+    Deskripsiprojek: 'Penjelasan singkat.',
     Teknologi: ['HTML', 'CSS', 'JavaScript'],
     Linkprojek: 'https://example.com'
   }
 ];
 ```
 
-Mau tambah project? Salin satu blok `{ ... }`, tempel di bawahnya, lalu isi.
-Semua kolom boleh dikosongkan, bagian yang kosong tidak ditampilkan.
-
----
+Semua field opsional. Buat tambah project, copy-paste blok di atas dan ubah isi.
 
 ### 🛍️ Produk
 
@@ -193,57 +123,87 @@ Produk = [
   {
     Potproduk: 'Malix/produk1.jpg',
     Namaproduk: 'Nama Produk',
-    Deskripsiproduk: 'Deskripsi singkat produk.',
-    Harga: 15000,
-    Label: 'BARU',
+    Deskripsiproduk: 'Deskripsi.',
+    Harga: 15000,        // Auto jadi "Rp 15.000"
+    Label: 'BARU',       // Stiker pojok foto
     Linkproduk: 'https://wa.me/628xxxxxxxxxx'
   }
 ];
 ```
 
-| Kolom | Keterangan |
-|---|---|
-| `Harga` | Angka otomatis jadi `Rp 15.000`. Boleh teks, misalnya `'Gratis'` atau `'Nego'` |
-| `Label` | Stiker kecil di pojok foto, misalnya `'BARU'` atau `'HOT'` |
-| `Linkproduk` | Tujuan tombol BELI, misalnya link WhatsApp |
+**Harga bisa:**
+- Angka: `15000` → `Rp 15.000`
+- Text: `'Gratis'`, `'Nego'`, `'Hub Admin'`
+
+---
+
+## 📁 Struktur File
+
+```
+.
+├── index.html       # Halaman utama (jangan edit)
+├── config.js        # ✅ EDIT INI untuk customize
+├── style.css        # Styling (tidak perlu diedit)
+├── vercel.json      # Deploy config
+├── README.md        # Dokumentasi
+└── Malix/           # Asset folder
+    ├── Background.png
+    ├── intro.mp4
+    ├── fotoku.jpg
+    ├── banner.png
+    ├── project1.jpg
+    └── produk1.jpg
+```
 
 ---
 
 ## 💡 Tips
 
-- **Huruf besar-kecil harus sama persis.** `Malix/Foto.jpg` dan `malix/foto.jpg` dianggap berbeda di GitHub dan Vercel.
-- **Hindari spasi di nama file.** Pakai `foto-profil.jpg`, bukan `foto profil.jpg`.
-- **Foto ikon sebaiknya kotak (1:1)** supaya tidak terpotong di lingkaran.
-- **Ukuran gambar di bawah 1 MB** supaya website cepat dibuka.
-- **Jangan menaruh API key atau data rahasia di `config.js`.** Semua isinya bisa dilihat siapa pun yang membuka website.
+- **Huruf besar-kecil harus sama**: `Malix/Foto.jpg` ≠ `malix/foto.jpg`
+- **Hindari spasi di nama file**: pakai `foto-profil.jpg`, bukan `foto profil.jpg`
+- **Foto icon sebaiknya kotak (1:1)**: supaya tidak terpotong di lingkaran
+- **Ukuran file < 1 MB per gambar**: supaya website cepat
+- **Jangan taruh API key** atau data sensitif di `config.js`
 
 ---
 
 ## 🌐 Deploy
 
-Website ini statis, jadi bisa dipasang gratis di hosting statis mana pun.
+### Vercel (Recommended)
 
-**Vercel**
+1. Push project ke GitHub
+2. Buka [vercel.com](https://vercel.com)
+3. Klik **Add New → Project**
+4. Pilih repository, atur **Framework Preset** ke `Other`
+5. Klik **Deploy**
+6. Selesai! Website live
 
-1. Upload project ke GitHub.
-2. Buka [vercel.com](https://vercel.com) lalu **Add New → Project**.
-3. Pilih repository ini, atur *Framework Preset* ke **Other**.
-4. Klik **Deploy**.
+Setiap push ke GitHub, otomatis redeploy.
 
-**GitHub Pages**
+### GitHub Pages
 
-1. Buka **Settings → Pages**.
-2. Pada *Source*, pilih branch `main` dan folder `/ (root)`.
-3. Simpan, lalu tunggu beberapa menit.
+1. Buka **Settings → Pages**
+2. **Source**: pilih branch `main`, folder `/ (root)`
+3. Save → tunggu beberapa menit
+4. Website live di `https://username.github.io/repo-name`
+
+---
+
+## 🆘 Troubleshooting
+
+| Masalah | Solusi |
+|---------|--------|
+| Gambar tidak muncul | Cek path file dan nama file (case-sensitive) |
+| Link tidak detect platform | Pastikan format URL benar (contoh: `instagram.com/username`) |
+| Icon tidak berubah | Clear browser cache (Ctrl+Shift+R) |
+| Video intro tidak play | Gunakan format MP4, ukuran < 5 MB |
 
 ---
 
 <div align="center">
 
-### 👨‍💻 Developer
+**Simple configuration. Automatic rendering.** ⚡
 
-**Malix**
-
-*Simple configuration. Automatic rendering.*
+[Vercel](https://vercel.com) · [GitHub Pages](https://pages.github.com)
 
 </div>
