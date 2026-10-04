@@ -263,6 +263,9 @@ a { color: inherit; text-decoration: none; }
   stroke-linejoin: round;
 }
 
+.pill .ic img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
+.pill .ic.emo { font-size: 22px; line-height: 1; }
+
 .pill .go { margin-left: auto; font-weight: 800; }
 .pill.gn { background: var(--gn); }
 .pill.pk { background: var(--pk); }

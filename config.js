@@ -6,6 +6,8 @@ Potowelcome = 'https://files.catbox.moe/6q1xyh.png';
 Background = 'Malix/Background.png';
 Intro = 'Malix/intro.mp4';
 
+Ikon = { wa: 'https://files.catbox.moe/09tm5y.jpg' };
+
 Links = [
   'https://whatsapp.com/channel/0029Vb8oXCKJENy6aGRhmV1z',
   'tiktok.com/@malixapel76',

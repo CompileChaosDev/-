@@ -130,11 +130,14 @@
     };
 
     var SITES = [
+      [/chat\.whatsapp\.com/i, 'WhatsApp Group', 'wa'],
       [/whatsapp\.com\/channel/i, 'WhatsApp Channel', 'wa'],
       [/whatsapp\.com|wa\.me/i, 'WhatsApp', 'wa'],
       [/instagram\.com/i, 'Instagram', 'ig'],
       [/tiktok\.com/i, 'TikTok', 'tt'],
+      [/t\.me\/(\+|joinchat)/i, 'Telegram Group', 'tg'],
       [/t\.me|telegram\./i, 'Telegram', 'tg'],
+      [/discord\.(gg|com\/invite)/i, 'Discord Server', 'dc'],
       [/discord\./i, 'Discord', 'dc'],
       [/youtube\.com|youtu\.be/i, 'YouTube', 'yt'],
       [/github\.com/i, 'GitHub', 'gh'],
@@ -142,6 +145,12 @@
       [/(^|\/\/|\.)(x|twitter)\.com/i, 'X', 'x']
     ];
     var COLORS = ['gn', 'pk', 'pu', 'bl', 'y'];
+
+    var customIcons = get('Ikon');
+    if (!customIcons || typeof customIcons !== 'object') customIcons = {};
+
+    /** @param {any} v @returns {boolean} */
+    var isImage = function (v) { return /^(https?:|data:|\/|\.)|\.(png|jpe?g|webp|gif|svg)$/i.test(v); };
 
     var rawLinks = [get('Linkchannel'), get('Linkig'), get('Linktiktok')];
     var extra = get('Links');
@@ -153,7 +162,12 @@
     rawLinks.forEach(function (item) {
       var name = '';
       var url = item;
-      if (item && typeof item === 'object') { url = item.link || item.url; name = item.nama || item.name || ''; }
+      var custom = '';
+      if (item && typeof item === 'object') {
+        url = item.link || item.url;
+        name = item.nama || item.name || '';
+        custom = String(item.icon || item.ikon || '').trim();
+      }
       var href = fixLink(url);
       if (!href || seenLinks[href]) return;
       seenLinks[href] = 1;
@@ -167,6 +181,7 @@
         label = href.replace(/^https?:\/\/(www\.)?/i, '').split(/[\/?#]/)[0];
         label = label.charAt(0).toUpperCase() + label.slice(1);
       }
+      if (!custom && customIcons[icon]) custom = String(customIcons[icon]).trim();
 
       var a = document.createElement('a');
       a.className = 'pill ' + COLORS[n % COLORS.length];
@@ -176,6 +191,22 @@
       a.rel = 'noopener noreferrer';
       a.innerHTML = '<span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[icon] + '</svg></span><span></span>';
       a.children[1].textContent = label;
+
+      if (custom) {
+        var iconBox = a.children[0];
+        var defaultSvg = iconBox.innerHTML;
+        iconBox.innerHTML = '';
+        if (isImage(custom)) {
+          var iconImg = document.createElement('img');
+          iconImg.src = custom;
+          iconImg.alt = '';
+          iconImg.onerror = function () { iconBox.innerHTML = defaultSvg; };
+          iconBox.appendChild(iconImg);
+        } else {
+          iconBox.textContent = custom;
+          iconBox.classList.add('emo');
+        }
+      }
       $('#links').appendChild(a);
     });
 
@@ -227,7 +258,7 @@
           o.href = href;
           o.target = '_blank';
           o.rel = 'noopener noreferrer';
-          o.textContent = 'BUKA \u2192';
+          o.textContent = 'BUKA';
           body.appendChild(o);
         }
 
@@ -289,7 +320,7 @@
           bt.href = buy;
           bt.target = '_blank';
           bt.rel = 'noopener noreferrer';
-          bt.textContent = 'BELI \u2192';
+          bt.textContent = 'BELI';
           body.appendChild(bt);
         }
         card.appendChild(body);
