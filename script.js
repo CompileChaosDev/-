@@ -69,28 +69,50 @@ if (logo) {
   $('#logoBtn').hidden = true;
 }
 
-// latar belakang: video, foto, atau warna
+// Background: MP4 digunakan sebagai musik tersembunyi; gambar/warna tetap menjadi latar visual.
 var bg = String(get('Background') || '').trim();
 var bgBox = $('#bg');
 
 if (bg && isVideo(bg)) {
-  var video = el('video');
-  video.src = bg;
-  video.autoplay = true;
-  video.loop = true;
-  video.muted = true;
-  video.playsInline = true;
-  video.setAttribute('muted', '');
-  video.setAttribute('playsinline', '');
-  bgBox.appendChild(video);
-  video.addEventListener('canplay', function () {
-    bgBox.classList.add('on');
-    video.play().catch(function () {});
+  // Satu elemen saja agar audio tidak bertumpuk saat navigasi hash.
+  var music = el('video');
+  music.id = 'backgroundMusic';
+  music.src = bg;
+  music.autoplay = true;
+  music.loop = true;
+  music.muted = false;
+  music.volume = 0.5;
+  music.playsInline = true;
+  music.preload = 'auto';
+  music.controls = false;
+  music.setAttribute('playsinline', '');
+  music.setAttribute('webkit-playsinline', '');
+  music.setAttribute('aria-hidden', 'true');
+  music.tabIndex = -1;
+  music.style.cssText = 'display:none!important;width:0;height:0;position:absolute;visibility:hidden;pointer-events:none;';
+  document.body.appendChild(music);
+
+  function startBackgroundMusic() {
+    if (!music.paused) return;
+    var attempt = music.play();
+    if (attempt && typeof attempt.catch === 'function') {
+      attempt.catch(function () {
+        // Browser dapat memblokir autoplay bersuara sampai ada interaksi pengguna.
+      });
+    }
+  }
+
+  music.addEventListener('canplay', startBackgroundMusic, { once: true });
+  startBackgroundMusic();
+
+  // Fallback otomatis pada interaksi pertama, tanpa tombol Play/Pause.
+  ['pointerdown', 'touchstart', 'keydown'].forEach(function (eventName) {
+    document.addEventListener(eventName, startBackgroundMusic, { once: true, passive: true });
   });
 } else if (bg && isImage(bg)) {
   var probe = new Image();
   probe.onload = function () {
-    bgBox.style.backgroundImage = 'url("' + bg.replace(/["\\]/g, '') + '")';
+    bgBox.style.backgroundImage = 'url("' + bg.replace(/["\\\\]/g, '') + '")';
     bgBox.classList.add('on');
   };
   probe.src = bg;
