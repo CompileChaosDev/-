@@ -3,7 +3,7 @@ Logo = 'https://files.catbox.moe/e6kmdx.jpg';
 Judul = '';
 Deskripsi = '';
 
-Background = 'Malix/Background.mp4';
+Background = 'https://files.catbox.moe/a3ob1h.mp4';
 
 Ikon = {
   wa: 'Malix/wa.jpg',
