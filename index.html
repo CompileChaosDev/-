@@ -3,399 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#cfe2ff">
   <title>Malix</title>
-  <meta name="theme-color" content="#FFE9A8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&display=swap">
   <link rel="stylesheet" href="style.css">
   <script src="config.js"></script>
-  <script>
-    (function () {
-      var c = document.documentElement.classList, seen = false;
-      try { seen = !!sessionStorage.getItem('intro_seen'); } catch (e) {}
-      c.add(window.Intro && !seen ? 'intro-on' : 'intro-skip');
-    })();
-  </script>
 </head>
 <body>
   <div id="bg"></div>
 
-  <div id="intro">
-    <video id="introVideo" muted autoplay playsinline preload="auto"></video>
-    <button class="skip" id="skipBtn" type="button">SKIP</button>
-  </div>
-
-  <main class="app" id="app">
-    <header class="top">
-      <span class="badge dark" id="brand"></span>
-      <div class="right">
-        <span class="badge light"><i class="dot"></i>Online</span>
-        <div class="menu-wrap">
-          <button class="icon-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false">&#8942;</button>
-          <div class="dropdown" id="dropdown" hidden>
-            <a href="#home" data-nav="home">Home</a>
-            <a href="#projects" data-nav="projects">Projects</a>
-            <a href="#produk" data-nav="produk">Produk</a>
-          </div>
-        </div>
+  <div id="scrim"></div>
+  <aside id="drawer" aria-label="Menu" aria-hidden="true">
+    <div class="dr-head">
+      <div class="dr-brand">
+        <button class="dr-logo" id="logoBtn" type="button" aria-label="Ke beranda"><img id="drawerLogo" alt=""></button>
+        <span class="dr-name" id="drName"></span>
       </div>
+      <button class="dr-close" id="closeBtn" type="button" aria-label="Tutup menu">&#10005;</button>
+    </div>
+    <nav class="dr-nav">
+      <p class="dr-label">Menu</p>
+      <a href="#home" data-nav="home">
+        <svg class="mi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>Home
+      </a>
+      <a href="#projects" data-nav="projects">
+        <svg class="mi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5h6l2 2h10V19H3z"/><path d="M3 11h18"/></svg>Projects
+      </a>
+      <a href="#produk" data-nav="produk">
+        <svg class="mi" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 4h3l2.2 11h10.6l2-8H6"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg>Produk
+      </a>
+    </nav>
+    <p class="dr-foot" id="drFoot"></p>
+  </aside>
+
+  <main class="app">
+    <header class="top">
+      <button class="icon-btn" id="menuBtn" type="button" aria-label="Menu" aria-expanded="false">&#8942;</button>
     </header>
 
     <section class="room" id="home">
-      <div class="banner" id="banner">
-        <img class="avatar" id="photo" alt="">
-      </div>
-      
-      <article class="card"><p id="desc"></p></article>
+      <img class="logo" id="logo" alt="">
+      <h1 class="home-name" id="homeName" hidden></h1>
+      <p class="card" id="desc" hidden></p>
       <nav class="links" id="links"></nav>
     </section>
 
     <section class="room" id="projects" hidden>
-      <h2 class="title">PROJECTS</h2>
+      <h2 class="title">Projects</h2>
       <div class="projects" id="projectList"></div>
     </section>
 
     <section class="room" id="produk" hidden>
-      <h2 class="title">PRODUK</h2>
+      <h2 class="title">Produk</h2>
       <div class="products" id="productList"></div>
     </section>
 
     <p class="foot" id="foot"></p>
   </main>
 
-  <script>
-    var $ = function (s) { return document.querySelector(s); };
-    var get = function (n) { return typeof window[n] === 'undefined' ? '' : window[n]; };
-    var fixLink = function (v) {
-      v = String(v || '').trim();
-      if (!v) return '';
-      return /^https?:\/\//i.test(v) ? v : 'https://' + v;
-    };
-    var cssUrl = function (v) { return 'url("' + String(v).replace(/["\\]/g, '') + '")'; };
-
-    var owner = String(get('Nameowner') || 'Malix');
-    document.title = owner;
-    $('#brand').textContent = '\u26A1 ' + owner;
-    $('#desc').textContent = get('Deskripsi');
-    $('#foot').textContent = '\u00A9 ' + owner;
-    if (!get('Deskripsi')) $('#desc').parentNode.hidden = true;
-
-    var bg = String(get('Background') || '').trim();
-    if (bg) {
-      if (/^(https?:|data:|\/|\.)|\.(jpe?g|png|gif|webp|svg)$/i.test(bg)) {
-        var bgProbe = new Image();
-        bgProbe.onload = function () {
-          var el = $('#bg');
-          el.style.backgroundImage = cssUrl(bg);
-          el.classList.add('on');
-        };
-        bgProbe.src = bg;
-      } else {
-        $('#bg').style.background = bg;
-        $('#bg').classList.add('on');
-      }
-    }
-
-    var photo = $('#photo');
-    if (get('Poto')) {
-      photo.src = get('Poto');
-      photo.onerror = function () { photo.hidden = true; };
-    } else {
-      photo.hidden = true;
-    }
-
-    var welcomeImg = String(get('Potowelcome') || '').trim();
-    if (welcomeImg) {
-      var probe = new Image();
-      probe.onload = function () {
-        var b = $('#banner');
-        b.style.backgroundImage = cssUrl(welcomeImg);
-        b.classList.add('has-img');
-      };
-      probe.src = welcomeImg;
-    }
-
-    var ICONS = {
-      wa: '<path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 19z"/><path d="M9 9c0 3 3 6 6 6l1.2-1.4-2-1-1 .7c-.8-.4-1.6-1.2-2-2l.7-1-1-2z"/>',
-      ig: '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r=".6"/>',
-      tt: '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.4 2 4 4.5 4.2"/>',
-      tg: '<path d="M21 3L3 10.5l6.5 2.2L12 20l3-4.5 5 3.5z"/><path d="M9.5 12.7L21 3"/>',
-      dc: '<path d="M8 8c-2 .5-3.5 1.2-4.5 2-1 3-1.5 6-1 8 1.5 1.2 3 1.7 4.5 2l1-1.5M16 8c2 .5 3.5 1.2 4.5 2 1 3 1.5 6 1 8-1.5 1.2-3 1.7-4.5 2l-1-1.5M8 8c2.7-.8 5.3-.8 8 0M8.5 18.2c2.2.6 4.8.6 7 0"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/>',
-      yt: '<rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10 9.5v5l4.5-2.5z"/>',
-      gh: '<path d="M9 19c-4 1.2-4-2-6-2.5M15 21v-3.2a2.8 2.8 0 0 0-.8-2.2c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6 0C6.5 2.9 5.5 3.2 5.5 3.2a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.1 9.6c0 4.6 2.8 5.7 5.5 6a2.8 2.8 0 0 0-.8 2.2V21"/>',
-      fb: '<path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H6.5v3.5H9V21h3.5v-8.5H15L15.5 9h-3V6.8c0-.5.3-.8.8-.8H15z"/>',
-      x: '<path d="M4 4l16 16M20 4L4 20"/>',
-      link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'
-    };
-
-    var SITES = [
-      [/chat\.whatsapp\.com/i, 'WhatsApp Group', 'wa'],
-      [/whatsapp\.com\/channel/i, 'WhatsApp Channel', 'wa'],
-      [/whatsapp\.com|wa\.me/i, 'WhatsApp', 'wa'],
-      [/instagram\.com/i, 'Instagram', 'ig'],
-      [/tiktok\.com/i, 'TikTok', 'tt'],
-      [/t\.me\/(\+|joinchat)/i, 'Telegram Group', 'tg'],
-      [/t\.me|telegram\./i, 'Telegram', 'tg'],
-      [/discord\.(gg|com\/invite)/i, 'Discord Server', 'dc'],
-      [/discord\./i, 'Discord', 'dc'],
-      [/youtube\.com|youtu\.be/i, 'YouTube', 'yt'],
-      [/github\.com/i, 'GitHub', 'gh'],
-      [/facebook\.com|fb\.com/i, 'Facebook', 'fb'],
-      [/(^|\/\/|\.)(x|twitter)\.com/i, 'X', 'x']
-    ];
-    var COLORS = ['gn', 'pk', 'pu', 'bl', 'y'];
-
-    var customIcons = get('Ikon');
-    if (!customIcons || typeof customIcons !== 'object') customIcons = {};
-
-    /** @param {any} v @returns {boolean} */
-    var isImage = function (v) { return /^(https?:|data:|\/|\.)|\.(png|jpe?g|webp|gif|svg)$/i.test(v); };
-
-    var rawLinks = [get('Linkchannel'), get('Linkig'), get('Linktiktok')];
-    var extra = get('Links');
-    if (!Array.isArray(extra)) extra = extra ? [extra] : [];
-    rawLinks = rawLinks.concat(extra);
-
-    var seenLinks = {};
-    var n = 0;
-    rawLinks.forEach(function (item) {
-      var name = '';
-      var url = item;
-      var custom = '';
-      if (item && typeof item === 'object') {
-        url = item.link || item.url;
-        name = item.nama || item.name || '';
-        custom = String(item.icon || item.ikon || '').trim();
-      }
-      var href = fixLink(url);
-      if (!href || seenLinks[href]) return;
-      seenLinks[href] = 1;
-
-      var icon = 'link';
-      var label = name;
-      for (var i = 0; i < SITES.length; i++) {
-        if (SITES[i][0].test(href)) { icon = SITES[i][2]; label = label || SITES[i][1]; break; }
-      }
-      if (!label) {
-        label = href.replace(/^https?:\/\/(www\.)?/i, '').split(/[\/?#]/)[0];
-        label = label.charAt(0).toUpperCase() + label.slice(1);
-      }
-      if (!custom && customIcons[icon]) custom = String(customIcons[icon]).trim();
-
-      var a = document.createElement('a');
-      a.className = 'pill ' + COLORS[n % COLORS.length];
-      n++;
-      a.href = href;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      a.innerHTML = '<span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[icon] + '</svg></span><span></span>';
-      a.children[1].textContent = label;
-
-      if (custom) {
-        var iconBox = a.children[0];
-        var defaultSvg = iconBox.innerHTML;
-        iconBox.innerHTML = '';
-        if (isImage(custom)) {
-          var iconImg = document.createElement('img');
-          iconImg.src = custom;
-          iconImg.alt = '';
-          iconImg.onerror = function () { iconBox.innerHTML = defaultSvg; };
-          iconBox.appendChild(iconImg);
-        } else {
-          iconBox.textContent = custom;
-          iconBox.classList.add('emo');
-        }
-      }
-      $('#links').appendChild(a);
-    });
-
-    var projects = get('Projek');
-    if (!Array.isArray(projects)) projects = [];
-
-    if (projects.length) {
-      projects.forEach(function (p) {
-        var card = document.createElement('article');
-        card.className = 'proj';
-
-        if (p.Potprojek) {
-          var img = document.createElement('img');
-          img.className = 'thumb';
-          img.src = p.Potprojek;
-          img.alt = '';
-          img.loading = 'lazy';
-          img.onerror = function () { img.remove(); };
-          card.appendChild(img);
-        }
-
-        var body = document.createElement('div');
-        body.className = 'body';
-
-        if (p.Namaprojek) {
-          var h = document.createElement('h3');
-          h.textContent = p.Namaprojek;
-          body.appendChild(h);
-        }
-        if (p.Deskripsiprojek) {
-          var d = document.createElement('p');
-          d.textContent = p.Deskripsiprojek;
-          body.appendChild(d);
-        }
-        if (Array.isArray(p.Teknologi) && p.Teknologi.length) {
-          var techs = document.createElement('div');
-          techs.className = 'techs';
-          p.Teknologi.forEach(function (t) {
-            var s = document.createElement('span');
-            s.textContent = t;
-            techs.appendChild(s);
-          });
-          body.appendChild(techs);
-        }
-        var href = fixLink(p.Linkprojek);
-        if (href) {
-          var o = document.createElement('a');
-          o.className = 'open';
-          o.href = href;
-          o.target = '_blank';
-          o.rel = 'noopener noreferrer';
-          o.textContent = 'BUKA';
-          body.appendChild(o);
-        }
-
-        card.appendChild(body);
-        $('#projectList').appendChild(card);
-      });
-    } else {
-      $('#projectList').innerHTML = '<p class="empty">Belum ada project.</p>';
-    }
-
-    var products = get('Produk');
-    if (!Array.isArray(products)) products = [];
-
-    if (products.length) {
-      products.forEach(function (p) {
-        var card = document.createElement('article');
-        card.className = 'prod';
-
-        var pic = document.createElement('div');
-        pic.className = 'pic';
-        if (p.Potproduk) {
-          var im = document.createElement('img');
-          im.src = p.Potproduk;
-          im.alt = '';
-          im.loading = 'lazy';
-          im.onerror = function () { im.remove(); };
-          pic.appendChild(im);
-        }
-        if (p.Label) {
-          var lb = document.createElement('span');
-          lb.className = 'label';
-          lb.textContent = p.Label;
-          pic.appendChild(lb);
-        }
-        card.appendChild(pic);
-
-        var body = document.createElement('div');
-        body.className = 'pbody';
-        if (p.Namaproduk) {
-          var nm = document.createElement('h3');
-          nm.textContent = p.Namaproduk;
-          body.appendChild(nm);
-        }
-        if (p.Deskripsiproduk) {
-          var ds = document.createElement('p');
-          ds.textContent = p.Deskripsiproduk;
-          body.appendChild(ds);
-        }
-        if (p.Harga !== undefined && p.Harga !== '') {
-          var pr = document.createElement('div');
-          pr.className = 'price';
-          pr.textContent = typeof p.Harga === 'number' ? 'Rp ' + p.Harga.toLocaleString('id-ID') : String(p.Harga);
-          body.appendChild(pr);
-        }
-        var buy = fixLink(p.Linkproduk);
-        if (buy) {
-          var bt = document.createElement('a');
-          bt.className = 'buy';
-          bt.href = buy;
-          bt.target = '_blank';
-          bt.rel = 'noopener noreferrer';
-          bt.textContent = 'BELI';
-          body.appendChild(bt);
-        }
-        card.appendChild(body);
-        $('#productList').appendChild(card);
-      });
-    } else {
-      $('#productList').innerHTML = '<p class="empty">Belum ada produk.</p>';
-    }
-
-    var rooms = ['home', 'projects', 'produk'];
-    var legacy = { projek: 'projects' };
-    var menuBtn = $('#menuBtn');
-    var dropdown = $('#dropdown');
-
-    function closeMenu() {
-      dropdown.hidden = true;
-      menuBtn.setAttribute('aria-expanded', 'false');
-    }
-
-    function show() {
-      var r = location.hash.replace('#', '');
-      r = legacy[r] || r;
-      if (rooms.indexOf(r) < 0) r = 'home';
-      rooms.forEach(function (id) { $('#' + id).hidden = id !== r; });
-      document.querySelectorAll('[data-nav]').forEach(function (a) {
-        a.classList.toggle('on', a.getAttribute('data-nav') === r);
-      });
-      closeMenu();
-      window.scrollTo(0, 0);
-    }
-
-    menuBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var open = dropdown.hidden;
-      dropdown.hidden = !open;
-      menuBtn.setAttribute('aria-expanded', String(open));
-    });
-    document.addEventListener('click', closeMenu);
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
-    window.addEventListener('hashchange', show);
-    show();
-
-    (function () {
-      var ov = $('#intro');
-      var root = document.documentElement;
-      if (!root.classList.contains('intro-on')) { ov.remove(); return; }
-
-      var v = $('#introVideo');
-      var app = $('#app');
-      var done = false;
-      var t;
-      app.inert = true;
-
-      function enter(seen) {
-        if (done) return;
-        done = true;
-        clearTimeout(t);
-        if (seen) { try { sessionStorage.setItem('intro_seen', '1'); } catch (e) {} }
-        root.classList.remove('intro-on');
-        app.inert = false;
-        ov.classList.add('out');
-        setTimeout(function () { ov.remove(); }, 700);
-      }
-
-      $('#skipBtn').addEventListener('click', function () { enter(true); });
-      v.addEventListener('ended', function () { enter(true); });
-      v.addEventListener('error', function () { enter(false); });
-      v.addEventListener('playing', function () { clearTimeout(t); });
-      t = setTimeout(function () { enter(false); }, 8000);
-
-      v.muted = true;
-      v.src = window.Intro;
-      var p = v.play();
-      if (p && p.catch) p.catch(function () { enter(false); });
-    })();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
