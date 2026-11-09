@@ -1,5 +1,5 @@
 Nameowner = 'Lixx';
-Logo = 'Malix/logo.jpg';
+Logo = 'https://files.catbox.moe/e6kmdx.jpg';
 Judul = '';
 Deskripsi = '';
 
