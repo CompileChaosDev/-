@@ -1,17 +1,23 @@
-Nameowner = 'malix';
+Nameowner = 'Lixx';
+Logo = 'Malix/logo.jpg';
+Judul = '';
 Deskripsi = '';
 
-Poto = 'https://files.catbox.moe/09tm5y.jpg';
-Potowelcome = 'https://files.catbox.moe/6q1xyh.png';
-Background = 'Malix/Background.png';
-Intro = 'Malix/intro.mp4';
+Background = 'Malix/Background.mp4';
 
-Ikon = { wa: 'https://files.catbox.moe/09tm5y.jpg' };
+Ikon = {
+  wa: 'Malix/wa.jpg',
+  tt: 'Malix/tiktok.jpg',
+  dc: 'Malix/discord.jpg',
+  ig: 'Malix/instagram.jpg'
+};
 
 Links = [
   'https://whatsapp.com/channel/0029Vb8oXCKJENy6aGRhmV1z',
-  'tiktok.com/@malixapel76',
-  't.me/malix_raw'
+  'https://discord.gg/pWZYPFaMx',
+  'tiktok.com/@malixnox_',
+  'https://github.com/Lixxx101',
+  { nama: 'Instagram', link: 'https://instagram.com/malixnox_' }
 ];
 
 Projek = [];
